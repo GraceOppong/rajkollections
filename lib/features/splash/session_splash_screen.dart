@@ -396,7 +396,7 @@ class _SupabaseBadge extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: AppColors.creamDark.withValues(alpha: 0.65),
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.sand.withValues(alpha: 0.5)),
       ),

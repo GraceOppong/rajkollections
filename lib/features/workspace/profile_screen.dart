@@ -209,7 +209,7 @@ class _IdentityRow extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(
-                      color: AppColors.creamDark.withValues(alpha: 0.7),
+                      color: AppColors.card,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Row(
@@ -283,7 +283,7 @@ class _ContactStrip extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.creamDark.withValues(alpha: 0.38),
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.sand.withValues(alpha: 0.2)),
       ),
@@ -386,7 +386,7 @@ class _SettingsCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.creamDark.withValues(alpha: 0.38),
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.sand.withValues(alpha: 0.2)),
       ),

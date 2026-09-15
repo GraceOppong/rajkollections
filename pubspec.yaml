@@ -66,6 +66,12 @@ flutter:
     - assets/images/rk_brand_lockup.png
     - assets/images/operation_today_banner.jpg
     - assets/images/kwame_asante.jpg
+    - assets/images/inv_earbuds.jpg
+    - assets/images/inv_tshirt.jpg
+    - assets/images/inv_backpack.jpg
+    - assets/images/inv_yoga_mat.jpg
+    - assets/images/inv_bottle.jpg
+    - assets/images/inv_cap.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

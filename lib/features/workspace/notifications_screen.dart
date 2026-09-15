@@ -430,7 +430,7 @@ class _NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
-      color: AppColors.creamDark.withValues(alpha: 0.38),
+      color: AppColors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(14),
         side: BorderSide(color: AppColors.sand.withValues(alpha: 0.18)),

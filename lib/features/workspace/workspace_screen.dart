@@ -5,6 +5,7 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../../widgets/rk_logo.dart';
 import '../../widgets/workspace_bottom_nav.dart';
+import 'inventory_screen.dart';
 import 'notifications_screen.dart';
 import 'profile_screen.dart';
 
@@ -43,11 +44,12 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
         child: Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: maxWidth),
-            child: _navIndex == 4
-                ? SizedBox.expand(
-                    child: ProfileScreen(onSignOut: widget.onSignOut),
-                  )
-                : Column(
+            child: switch (_navIndex) {
+              2 => const SizedBox.expand(child: InventoryScreen()),
+              4 => SizedBox.expand(
+                  child: ProfileScreen(onSignOut: widget.onSignOut),
+                ),
+              _ => Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Padding(
@@ -116,6 +118,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
                 ),
               ],
             ),
+            },
           ),
         ),
       ),
@@ -194,7 +197,7 @@ class _ProfileChip extends StatelessWidget {
   Widget build(BuildContext context) {
     final initial = name.isNotEmpty ? name[0].toUpperCase() : '?';
     return Material(
-      color: AppColors.creamDark.withValues(alpha: 0.42),
+      color: AppColors.card,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: BorderSide(color: AppColors.sand.withValues(alpha: 0.22)),
@@ -656,7 +659,7 @@ class _OrdersPanel extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.creamDark.withValues(alpha: 0.38),
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(18),
         border: Border.all(color: AppColors.sand.withValues(alpha: 0.2)),
       ),
@@ -912,7 +915,7 @@ class _QuickActionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final bg = primary ? AppColors.bronze : Colors.white.withValues(alpha: 0.55);
+    final bg = primary ? AppColors.bronze : AppColors.card;
     final fg = primary ? Colors.white : AppColors.coffee;
     final subFg = primary
         ? Colors.white.withValues(alpha: 0.85)
@@ -922,7 +925,12 @@ class _QuickActionTile extends StatelessWidget {
       height: 72,
       child: Material(
         color: bg,
-        borderRadius: BorderRadius.circular(12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+          side: primary
+              ? BorderSide.none
+              : BorderSide(color: AppColors.sand.withValues(alpha: 0.22)),
+        ),
         child: InkWell(
           onTap: onTap,
           borderRadius: BorderRadius.circular(12),

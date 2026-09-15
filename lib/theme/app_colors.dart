@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 abstract final class AppColors {
   static const cream = Color(0xFFF5F0E8);
   static const creamDark = Color(0xFFEBE3D6);
+  static const card = Color(0xFFFBF8F3);
   static const sand = Color(0xFFD4C4B0);
   static const bronze = Color(0xFF8B6F47);
   static const coffee = Color(0xFF4A3728);

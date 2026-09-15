@@ -21,7 +21,7 @@ class AuthSecurityBanner extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       decoration: BoxDecoration(
-        color: AppColors.creamDark.withValues(alpha: 0.55),
+        color: AppColors.card,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.sand.withValues(alpha: 0.45)),
       ),
