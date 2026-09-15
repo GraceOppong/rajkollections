@@ -158,7 +158,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
         const SizedBox(height: 10),
         Expanded(
           child: ListView(
-            padding: EdgeInsets.fromLTRB(horizontal, 0, horizontal, 20),
+            padding: EdgeInsets.fromLTRB(horizontal, 0, horizontal, 12),
             children: [
               if (visible.isEmpty)
                 Padding(
@@ -177,13 +177,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
                   _ProductRow(product: visible[i]),
                   if (i != visible.length - 1) const SizedBox(height: 6),
                 ],
-              if (_showBanner) ...[
-                const SizedBox(height: 12),
-                _InventoryBanner(onClose: () => setState(() => _showBanner = false)),
-              ],
             ],
           ),
         ),
+        if (_showBanner)
+          Padding(
+            padding: EdgeInsets.fromLTRB(horizontal, 4, horizontal, 10),
+            child: _InventoryBanner(onClose: () => setState(() => _showBanner = false)),
+          ),
       ],
     );
   }
@@ -663,7 +664,7 @@ class _InventoryBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: AppColors.creamDark,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.sand.withValues(alpha: 0.28)),
       ),
