@@ -7,6 +7,7 @@ import '../../widgets/rk_logo.dart';
 import '../../widgets/workspace_bottom_nav.dart';
 import 'inventory_screen.dart';
 import 'notifications_screen.dart';
+import 'orders_screen.dart';
 import 'profile_screen.dart';
 
 /// Staff workspace home — UI preview with mock data (no backend yet).
@@ -45,6 +46,7 @@ class _WorkspaceScreenState extends State<WorkspaceScreen> {
           child: ConstrainedBox(
             constraints: BoxConstraints(maxWidth: maxWidth),
             child: switch (_navIndex) {
+              1 => const SizedBox.expand(child: OrdersScreen()),
               2 => const SizedBox.expand(child: InventoryScreen()),
               4 => SizedBox.expand(
                   child: ProfileScreen(onSignOut: widget.onSignOut),

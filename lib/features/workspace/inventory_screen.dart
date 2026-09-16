@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import '../../core/responsive.dart';
 import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
+import 'inventory_product.dart';
+import 'product_detail_screen.dart';
 
 enum _StockFilter { all, inStock, lowStock, outOfStock }
-
-enum _StockStatus { inStock, lowStock, outOfStock }
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({super.key});
@@ -20,71 +20,20 @@ class _InventoryScreenState extends State<InventoryScreen> {
   var _filter = _StockFilter.all;
   var _showBanner = true;
 
-  static const _items = <_Product>[
-    _Product(
-      name: 'Wireless Earbuds',
-      sku: 'WE-BLK',
-      category: 'Electronics',
-      image: 'assets/images/inv_earbuds.jpg',
-      status: _StockStatus.outOfStock,
-      units: 0,
-    ),
-    _Product(
-      name: 'Classic T-Shirt',
-      sku: 'TS-WHT-L',
-      category: 'Apparel',
-      image: 'assets/images/inv_tshirt.jpg',
-      status: _StockStatus.inStock,
-      units: 120,
-    ),
-    _Product(
-      name: 'Travel Backpack',
-      sku: 'TB-BLK',
-      category: 'Bags',
-      image: 'assets/images/inv_backpack.jpg',
-      status: _StockStatus.lowStock,
-      units: 5,
-    ),
-    _Product(
-      name: 'Yoga Mat',
-      sku: 'YM-GRY',
-      category: 'Fitness',
-      image: 'assets/images/inv_yoga_mat.jpg',
-      status: _StockStatus.inStock,
-      units: 45,
-    ),
-    _Product(
-      name: 'Water Bottle',
-      sku: 'WB-SLV',
-      category: 'Accessories',
-      image: 'assets/images/inv_bottle.jpg',
-      status: _StockStatus.inStock,
-      units: 200,
-    ),
-    _Product(
-      name: 'Baseball Cap',
-      sku: 'BC-BLK',
-      category: 'Apparel',
-      image: 'assets/images/inv_cap.jpg',
-      status: _StockStatus.lowStock,
-      units: 8,
-    ),
-  ];
-
   @override
   void dispose() {
     _query.dispose();
     super.dispose();
   }
 
-  List<_Product> get _visible {
+  List<InventoryProduct> get _visible {
     final q = _query.text.trim().toLowerCase();
-    return _items.where((item) {
+    return kInventoryProducts.where((item) {
       final matchesFilter = switch (_filter) {
         _StockFilter.all => true,
-        _StockFilter.inStock => item.status == _StockStatus.inStock,
-        _StockFilter.lowStock => item.status == _StockStatus.lowStock,
-        _StockFilter.outOfStock => item.status == _StockStatus.outOfStock,
+        _StockFilter.inStock => item.status == StockStatus.inStock,
+        _StockFilter.lowStock => item.status == StockStatus.lowStock,
+        _StockFilter.outOfStock => item.status == StockStatus.outOfStock,
       };
       if (!matchesFilter) return false;
       if (q.isEmpty) return true;
@@ -492,11 +441,11 @@ class _StockChip extends StatelessWidget {
 class _ProductRow extends StatelessWidget {
   const _ProductRow({required this.product});
 
-  final _Product product;
+  final InventoryProduct product;
 
   @override
   Widget build(BuildContext context) {
-    final showUnits = product.status != _StockStatus.outOfStock;
+    final showUnits = product.status != StockStatus.outOfStock;
 
     return Material(
       color: AppColors.card,
@@ -506,17 +455,29 @@ class _ProductRow extends StatelessWidget {
         side: BorderSide(color: AppColors.sand.withValues(alpha: 0.22)),
       ),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.of(context).push(
+            MaterialPageRoute<void>(
+              builder: (_) => ProductDetailScreen(product: product),
+            ),
+          );
+        },
         child: IntrinsicHeight(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(
                 width: 68,
-                child: Image.asset(
-                  product.image,
-                  fit: BoxFit.cover,
-                  alignment: Alignment.center,
+                child: Hero(
+                  tag: 'inv-${product.sku}',
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Image.asset(
+                      product.image,
+                      fit: BoxFit.cover,
+                      alignment: Alignment.center,
+                    ),
+                  ),
                 ),
               ),
               Expanded(
@@ -601,24 +562,24 @@ class _ProductRow extends StatelessWidget {
 class _StatusChip extends StatelessWidget {
   const _StatusChip({required this.status});
 
-  final _StockStatus status;
+  final StockStatus status;
 
   @override
   Widget build(BuildContext context) {
     final (label, bg, fg, dot) = switch (status) {
-      _StockStatus.inStock => (
+      StockStatus.inStock => (
           'In stock',
           const Color(0xFFE3F0E6),
           const Color(0xFF4C9A62),
           const Color(0xFF4C9A62),
         ),
-      _StockStatus.lowStock => (
+      StockStatus.lowStock => (
           'Low stock',
           AppColors.alertAmber,
           AppColors.alertAmberIcon,
           const Color(0xFFE8A23A),
         ),
-      _StockStatus.outOfStock => (
+      StockStatus.outOfStock => (
           'Out of stock',
           AppColors.alertRose,
           AppColors.alertRoseIcon,
@@ -740,22 +701,4 @@ class _InventoryBanner extends StatelessWidget {
       ),
     );
   }
-}
-
-class _Product {
-  const _Product({
-    required this.name,
-    required this.sku,
-    required this.category,
-    required this.image,
-    required this.status,
-    required this.units,
-  });
-
-  final String name;
-  final String sku;
-  final String category;
-  final String image;
-  final _StockStatus status;
-  final int units;
 }
