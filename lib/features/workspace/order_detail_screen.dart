@@ -6,6 +6,8 @@ import '../../theme/app_colors.dart';
 import '../../theme/app_typography.dart';
 import '../../widgets/workspace_bottom_nav.dart';
 import 'order_models.dart';
+import 'dispatch_order_screen.dart';
+import 'pick_pack_screen.dart';
 
 class OrderDetailScreen extends StatefulWidget {
   const OrderDetailScreen({super.key, required this.order});
@@ -75,7 +77,26 @@ class _OrderDetailScreenState extends State<OrderDetailScreen> {
                     children: [
                       _NotesCard(notes: _notes, onAddNote: _openNoteBox),
                       const SizedBox(height: 6),
-                      _ActionBar(order: order),
+                      _ActionBar(
+                        order: order,
+                        onNext: switch (order.status) {
+                          OrderStatus.pending => () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => PickPackScreen(order: order),
+                                ),
+                              );
+                            },
+                          OrderStatus.packing => () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute<void>(
+                                  builder: (_) => DispatchOrderScreen(order: order),
+                                ),
+                              );
+                            },
+                          _ => () {},
+                        },
+                      ),
                     ],
                   ),
                 ),
@@ -859,9 +880,10 @@ class _NotesCard extends StatelessWidget {
 }
 
 class _ActionBar extends StatelessWidget {
-  const _ActionBar({required this.order});
+  const _ActionBar({required this.order, required this.onNext});
 
   final StoreOrder order;
+  final VoidCallback onNext;
 
   @override
   Widget build(BuildContext context) {
@@ -896,7 +918,7 @@ class _ActionBar extends StatelessWidget {
               color: AppColors.bronze,
               borderRadius: BorderRadius.circular(12),
               child: InkWell(
-                onTap: () {},
+                onTap: onNext,
                 borderRadius: BorderRadius.circular(12),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 11, horizontal: 6),

@@ -11,6 +11,7 @@ class OrderLineItem {
     required this.image,
     required this.unitPrice,
     this.qty = 1,
+    this.location = 'A1-01',
   });
 
   final String name;
@@ -18,6 +19,7 @@ class OrderLineItem {
   final String image;
   final double unitPrice;
   final int qty;
+  final String location;
 
   double get lineTotal => unitPrice * qty;
 
@@ -170,12 +172,14 @@ const kOrders = <StoreOrder>[
         sku: 'WE-BLK',
         image: 'assets/images/inv_earbuds.jpg',
         unitPrice: 200,
+        location: 'A1-03',
       ),
       OrderLineItem(
         name: 'Baseball Cap',
         sku: 'BC-BLK',
         image: 'assets/images/inv_cap.jpg',
         unitPrice: 50,
+        location: 'B2-01',
       ),
     ],
   ),
@@ -201,6 +205,7 @@ const kOrders = <StoreOrder>[
         sku: 'TS-WHT-L',
         image: 'assets/images/inv_tshirt.jpg',
         unitPrice: 100,
+        location: 'B3-02',
       ),
     ],
   ),
@@ -226,6 +231,7 @@ const kOrders = <StoreOrder>[
         sku: 'TB-BLK',
         image: 'assets/images/inv_backpack.jpg',
         unitPrice: 300,
+        location: 'A2-08',
       ),
     ],
   ),
@@ -252,6 +258,7 @@ const kOrders = <StoreOrder>[
         sku: 'YM-GRY',
         image: 'assets/images/inv_yoga_mat.jpg',
         unitPrice: 180,
+        location: 'C2-04',
       ),
     ],
   ),
@@ -276,6 +283,7 @@ const kOrders = <StoreOrder>[
         sku: 'WB-SLV',
         image: 'assets/images/inv_bottle.jpg',
         unitPrice: 65,
+        location: 'C3-05',
       ),
     ],
   ),
@@ -301,6 +309,7 @@ const kOrders = <StoreOrder>[
         sku: 'BC-BLK',
         image: 'assets/images/inv_cap.jpg',
         unitPrice: 80,
+        location: 'B2-01',
       ),
     ],
   ),

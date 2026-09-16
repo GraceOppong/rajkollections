@@ -72,6 +72,10 @@ flutter:
     - assets/images/inv_yoga_mat.jpg
     - assets/images/inv_bottle.jpg
     - assets/images/inv_cap.jpg
+    - assets/images/courier_uber.png
+    - assets/images/courier_bolt.png
+    - assets/images/courier_yango.png
+    - assets/images/courier_speedaf.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
